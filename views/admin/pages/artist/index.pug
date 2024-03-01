@@ -1,0 +1,44 @@
+extends ../../layouts/default.pug
+block main
+    //- +alert-error("5000")
+    //- +alert-success("5000")
+    h1 Artist List
+    .card.mb-3 
+        .card-header 
+            .card-bodyz
+                .row 
+                    .col-8 
+                    .col-4.text-end
+                        a(
+                            href= `${prefixAdmin}/artist/create`
+                            class= "btn btn-outline-success"
+                        ) + Add new
+                table(class= "table table-hover table-sm" checkbox-multi)
+                    thead 
+                        tr
+                            th 
+                                input(type= "checkbox" name= "check-all")
+                            th ID 
+                            th Name 
+                            th Cover 
+                            th Music List
+                            th Action
+                    tbody
+                        each item,index in records 
+                            tr 
+                                td
+                                    input(type="checkbox" name= "check-item" value=item.id)
+                                td #{item._id}
+                                td #{item.name_Artist}
+                                td
+                                    img(src = item.image, alt= item.title class = 'center-cropped-image')
+                                td(style="max-width: 200px; overflow: auto;")
+                                    ul 
+                                        each line in item.id_albums
+                                            li= line 
+                                td 
+                                    a(href=`${prefixAdmin}/music/edit/${item.id}` class= "btn btn-warning btn-sm") Change
+                                    button(class= "btn btn-danger btn-sm ms-1" data-id=item.id delete-item-button) Delete
+
+    form(action="", method="POST" id= "form-delete-item" data-path= `${prefixAdmin}/artist/delete`)
+    

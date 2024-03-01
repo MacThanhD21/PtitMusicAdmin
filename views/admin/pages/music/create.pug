@@ -1,0 +1,66 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+block main
+    +alert-error("5000")
+    h1(class="mb-4") Add new song
+
+    form(
+        action= `${prefixAdmin}/music/create`
+        id="form-create-music"
+        method="POST"
+        enctype="multipart/form-data"
+    )
+        div(class="form-group mb-3")
+            label(for="title") Song Title
+            input(
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                required
+            )
+        
+        div(class="form-group mb-3")
+            label(for="artist") Artist
+            input(
+                type="text"
+                class="form-control"
+                id="artist"
+                name="artist"
+            ) 
+        div(class="form-group mb-3")
+            label(for="genre") Genre
+            input(
+                type="text"
+                class="form-control"
+                id="genre"
+                name="genre"
+            )
+        
+        div(class="form-group mb-3" upload-image)
+            label(for="imagecover" style = "display: block;") Image Cover
+            input(
+                type="file"
+                class="form-control-file"
+                id="imagecover"
+                name="imagecover"
+                accept="image/*"
+                upload-image-input
+                
+                )
+            img(src="", upload-image-preview class= "image-preview")
+            
+        div(class="form-group mb-3")
+            label(for='link' style = "display: block;") Select Music File:
+            input(
+                type='file', 
+                id='link', 
+                name='link', 
+                accept='audio/*', 
+                )
+        div(class="form-group mb-3")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Add

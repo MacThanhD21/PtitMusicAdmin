@@ -1,0 +1,68 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+block main
+    h1(class="mb-4") Update Data
+
+    form(
+        action= `${prefixAdmin}/music/edit/${music.id}?_method=PATCH`
+        id="form-edit-music"
+        method="POST"
+        enctype="multipart/form-data"
+    )
+        div(class="form-group mb-3")
+            label(for="title") Song Title
+            input(
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                value = music.title
+                required
+            )
+        
+        div(class="form-group mb-3")
+            label(for="artist") Artist
+            input(
+                type="text"
+                class="form-control"
+                id="artist"
+                value = music.artist
+                name="artist"
+            ) 
+        div(class="form-group mb-3")
+            label(for="genre") Genre
+            input(
+                type="text"
+                class="form-control"
+                id="genre"
+                value = music.genre
+                name="genre"
+            )
+        
+        div(class="form-group mb-3" upload-image)
+            label(for="imagecover" style = "display: block;") Image Cover
+            input(
+                type="file"
+                class="form-control-file"
+                id="imagecover"
+                name="imagecover"
+                accept="image/*"
+                upload-image-input
+                
+                )
+            img(src=music.imagecover , upload-image-preview class= "image-preview")
+            
+        div(class="form-group mb-3")
+            label(for='link' style = "display: block;") Select Music File:
+            input(
+                type='file', 
+                id='link', 
+                name='link', 
+                accept='audio/*', 
+                )
+        div(class="form-group mb-3")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Update

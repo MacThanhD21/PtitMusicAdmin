@@ -1,0 +1,49 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+block main
+    h1(class="mb-4") New Artist
+
+    form(
+        action= `${prefixAdmin}/artist/create`
+        method="POST"
+        enctype="multipart/form-data"
+    )
+        div(class="form-group mb-3")
+            label(for="title") Name
+            input(
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                required
+            )   
+        
+        div(class="form-group mb-3")
+            lable(for="desc") Music List
+            textarea(
+                class="form-control"
+                id="desc"
+                name="description"
+                rows="5"
+                class="tinymce-textarea"
+            )
+        div(class="form-group mb-3" upload-image)
+            label(for="thumbnail" style = "display: block;") Cover
+            input(
+                type="file"
+                class="form-control-file"
+                id="thumbnail"
+                name="thumbnail"
+                accept="image/*"
+                upload-image-input
+                required
+                )
+            img(src="", upload-image-preview class= "image-preview")
+            
+        
+        div(class="form-group mb-3")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Add 

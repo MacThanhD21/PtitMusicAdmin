@@ -1,0 +1,5 @@
+.center-cropped-image {
+    width: 300px; /* Set your desired width */
+    height: 200px; /* Set your desired height */
+    object-fit: cover;
+}

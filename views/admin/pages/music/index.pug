@@ -1,0 +1,82 @@
+extends ../../layouts/default.pug
+//- include ../../mixins/filter-status.pug
+//- include ../../mixins/search.pug
+//- include ../../mixins/pagination.pug
+//- include ../../mixins/form-change-multi
+//- include ../../mixins/alert.pug
+//- include ../../mixins/sort.pug
+
+
+block main
+    link(rel='stylesheet', href='../style.css')
+    h1 List Music 
+    .card.mb-3 
+        .card-header 
+            .card-bodyz
+                .row 
+                    .col-8 
+                    .col-4.text-end
+                        a(
+                            href= `${prefixAdmin}/music/create`
+                            class= "btn btn-outline-success"
+                        ) Add music
+                table(class= "table table-hover table-sm" checkbox-multi)
+                    thead 
+                        tr
+                            th 
+                                input(type= "checkbox" name= "check-all")
+                            th ObjectId
+                            th Title
+                            th Artist
+                            th Genre
+                            th Image Cover
+                            th Link
+                            th Modify
+                    tbody
+                        each item, index in listMusic 
+                            tr
+                                td
+                                    input(type="checkbox" name= "check-item" value=item.id)
+                                td #{item._id}
+                                td #{item.title}
+                                td #{item.artist}    
+                                td #{item.genre}
+                                td 
+                                    a(href = `${item.imagecover}`)
+                                        img(
+                                            src= `${item.imagecover}`
+                                            alt= item.title 
+                                            class = 'center-cropped-image'
+                                        )
+                                td 
+                                    a(href = `${item.link}` class = "btn btn-warning btn-sm" target = "_blank") Link 
+                                td 
+                                    a(href=`${prefixAdmin}/music/edit/${item.id}` class= "btn btn-warning btn-sm") Change
+                                    button(class= "btn btn-danger btn-sm ms-1" data-id=item.id delete-item-button) Delete
+    form(action="", method="POST" id= "form-delete-item" data-path= `${prefixAdmin}/music/delete`)
+    //-                             td
+    //-                                 input(type="number" value=item.position style="width: 60px" min="1" name="position")
+    //-                             td 
+    //-                                 if (role.permissions.includes("music_edit"))
+    //-                                     if (item.status == "active")
+    //-                                         a(href="javascript:;" class= "btn btn-success" button-change-status item-id= item.id item-status= item.status) Hoạt động
+    //-                                     else
+    //-                                         a(href="javascript:;" class= "btn btn-danger" button-change-status item-id = item.id item-status= item.status) Dừng hoạt động
+    //-                                 else 
+    //-                                     if (item.status == "active")
+    //-                                         span(class= "btn btn-success") Hoạt động
+    //-                                     else
+    //-                                         span(class= "btn btn-danger") Dừng hoạt động
+    //-                             td
+    //-                                 if (item.createdBy.fullName)
+    //-                                     p #{item.createdBy.fullName}
+    //-                                     p #{moment(item.createdBy.createdAt).format("DD/MM/YYYY hh:mm:ss")}
+    //-                             td 
+    //-                                 - const updatedBy = item.updatedBy.slice(-1)[0];
+    //-                                 if (updatedBy)
+    //-                                     p #{updatedBy.fullName}
+    //-                                     p #{moment(updatedBy.updatedAt).format("DD/MM/YYYY hh:mm:ss")}
+                            
+    
+            
+
