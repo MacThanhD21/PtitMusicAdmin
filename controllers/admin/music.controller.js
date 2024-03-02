@@ -11,6 +11,8 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     storageBucket: "gs://ptitwebmusicspring24.appspot.com"
 });
+
+
 const bucket = admin.storage().bucket();
 
 module.exports.index = async (req, res) => {
